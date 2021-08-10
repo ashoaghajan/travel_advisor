@@ -1,12 +1,14 @@
 import React from 'react';
 
 export interface PlaceDetailsProps {
-    
+    place: {
+        name: string;
+    }
 }
  
-const PlaceDetails: React.SFC<PlaceDetailsProps> = () => {
+const PlaceDetails: React.SFC<PlaceDetailsProps> = ({ place }) => {
     return ( 
-        <div>PlaceDetails</div>
+        <div>{place.name}</div>
      );
 }
  
