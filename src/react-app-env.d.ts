@@ -8,5 +8,7 @@ type Place = {
     address: string,
     phone: string,
     web_url: string,
-    website: string
+    website: string,
+    latitude: string,
+    longitude
 }

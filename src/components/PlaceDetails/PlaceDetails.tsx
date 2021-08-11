@@ -11,7 +11,6 @@ export interface PlaceDetailsProps {
 const PlaceDetails: React.SFC<PlaceDetailsProps> = ({ place }) => {
 
     const classes = useStyles();
-    console.log(place)
 
     return ( 
         <Card elevation={6}>

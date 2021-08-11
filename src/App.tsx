@@ -35,7 +35,7 @@ function App() {
           <List places={places}/>
         </Grid>
         <Grid item xs={12} md={8}>
-          <Map coordinates={coordinates} setCoordinates={setCoordinates} setBounds={setBounds}/>
+          <Map places={places} coordinates={coordinates} setCoordinates={setCoordinates} setBounds={setBounds}/>
         </Grid>
       </Grid>
     </Fragment>
