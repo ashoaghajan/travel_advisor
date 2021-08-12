@@ -15,16 +15,17 @@ const ratings = [
 export interface ListProps {
     places: any[],
     childClicked: any,
-    loading: boolean
+    loading: boolean,
+    type: string,
+    rating: number,
+    setType: React.Dispatch<React.SetStateAction<string>>,
+    setRating: React.Dispatch<React.SetStateAction<number>>
 }
  
-const List: React.SFC<ListProps> = ({ places, childClicked, loading }) => {
+const List: React.SFC<ListProps> = ({ places, childClicked, loading, type, rating, setType, setRating }) => {
 
     const classes = useStyles();
-    const [type, setType] = useState(types[0]);
-    const [rating, setRating] = useState(0);
     const [elRefs, setElRefs]: [any[], React.Dispatch<React.SetStateAction<any>>] = useState([]);
-
     
     useEffect(() => {
         const refs: any[] = Array(places?.length).fill(null).map((_, index) => elRefs[index] || createRef());

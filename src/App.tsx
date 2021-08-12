@@ -9,10 +9,13 @@ import _ from 'lodash';
 function App() {
 
   const [places, setPlaces] = useState([]);
+  const [filteredPlaces, setFilteredPlaces] = useState([]);
   const [coordinates, setCoordinates] = useState({});
   const [bounds, setBounds] = useState({ ne: { lat: 0, lng: 0 }, sw: { lat: 0, lng: 0  } });
-  const [childClicked, setChildClicked] = useState(null);
+  const [childClicked, setChildClicked]: [any, React.Dispatch<React.SetStateAction<any>>] = useState({});
   const [loading, setLoading] = useState(false);
+  const [type, setType] = useState('restaurants');
+  const [rating, setRating] = useState(0);
 
 
   useEffect(() => {
@@ -21,16 +24,22 @@ function App() {
     })
   },[]);
 
-  const getPlaces = useRef(_.debounce(async(sw: any, ne: any) => {
-    const data = await getPlacesData(sw, ne);
+  useEffect(() => {
+    setFilteredPlaces(places?.filter((place: Place) => place.rating > rating));
+  },[rating]);
+
+  const getPlaces = useRef(_.debounce(async(type, sw: any, ne: any) => {
+    const data = await getPlacesData(type, sw, ne);
+    console.log(data)
     setPlaces(data);
+    setFilteredPlaces(places);
     setLoading(false);
   }, 1000)).current;
 
   useEffect(() => {
     setLoading(true);
-    getPlaces(bounds.sw, bounds.ne);
-  },[coordinates, bounds]);
+    getPlaces(type, bounds.sw, bounds.ne);
+  },[coordinates, bounds, type]);
 
   
   return (
@@ -39,10 +48,11 @@ function App() {
       <Header />
       <Grid container spacing={3} style={{ width: '100%' }}>
         <Grid item xs={12} md={4}>
-          <List places={places} childClicked={childClicked} loading={loading}/>
+          <List places={filteredPlaces} childClicked={childClicked} loading={loading} type={type} rating={rating}
+            setType={setType} setRating={setRating} />
         </Grid>
         <Grid item xs={12} md={8}>
-          <Map places={places} coordinates={coordinates} setCoordinates={setCoordinates} 
+          <Map places={filteredPlaces} coordinates={coordinates} setCoordinates={setCoordinates} 
             setBounds={setBounds} setChildClicked={setChildClicked}/>
         </Grid>
       </Grid>

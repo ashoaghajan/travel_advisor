@@ -14,6 +14,7 @@ export interface MapProps {
 const Map: React.SFC<MapProps> = ({ places, coordinates, setCoordinates, setBounds, setChildClicked }) => {
 
     const classes = useStyles();
+    console.log(places)
 
     const handleChange = (e: any) => {
         const { center: { lat, lng }, marginBounds: { ne, sw } } = e;
@@ -24,9 +25,9 @@ const Map: React.SFC<MapProps> = ({ places, coordinates, setCoordinates, setBoun
     return ( 
         <div className={classes.mapContainer}>
             <GoogleMapReact bootstrapURLKeys={{ key: 'AIzaSyBVcNQySsn4B9OBpsl5pOG6xEZAHp--nr8' }} 
-                defaultCenter={coordinates} center={coordinates} defaultZoom={8}
+                defaultCenter={coordinates} center={coordinates} defaultZoom={14}
                 margin={[50, 50, 50, 50]} options={{}} onChange={handleChange} onChildClick={(child) => setChildClicked(child)}>
-                {places.map((place: Place, index: number) => {
+                {places?.map((place: Place, index: number) => {
                     const coords= { lat: Number(place.latitude), lng: Number(place.longitude) }
                     return place.latitude ? <MapItem key={index} classes={classes} lat={coords.lat} lng={coords.lng} place={place}/> : null
                 })}    
