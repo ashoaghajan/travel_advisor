@@ -1,16 +1,22 @@
 import React from 'react';
 import { Box, Typography, Button, Card, CardMedia, CardContent, CardActions, Chip } from '@material-ui/core';
 import { LocationOn, Phone } from '@material-ui/icons';
-import { Rating } from '@material-ui/lab';
+import Rating from '@material-ui/lab/Rating';
 import useStyles from './placeDetailsStyles';
 
 export interface PlaceDetailsProps {
-    place: Place
+    place: Place,
+    selected: boolean,
+    refProp: any
 }
  
-const PlaceDetails: React.SFC<PlaceDetailsProps> = ({ place }) => {
+const PlaceDetails: React.SFC<PlaceDetailsProps> = ({ place, selected, refProp }) => {
 
     const classes = useStyles();
+    
+    if(selected){
+        refProp?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 
     return ( 
         <Card elevation={6}>
@@ -19,6 +25,10 @@ const PlaceDetails: React.SFC<PlaceDetailsProps> = ({ place }) => {
             }/>
             <CardContent>
                 <Typography gutterBottom variant='h5'>{place.name}</Typography>
+                <Box display='flex' justifyContent='space-between'>
+                    <Rating value={Number(place.rating)} readOnly/>
+                    <Typography gutterBottom variant='subtitle1'>out of{place.num_reviews}</Typography>
+                </Box>
                 <Box display='flex' justifyContent='space-between'>
                     <Typography variant='subtitle1'>Price</Typography>
                     <Typography gutterBottom variant='subtitle1'>{place.price_level}</Typography>

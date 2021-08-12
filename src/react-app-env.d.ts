@@ -3,6 +3,7 @@ type Place = {
     photo: any,
     price_level: string,
     ranking: string,
+    rating: number,
     awards: any[],
     cuisine: { key: string, name: string }[],
     address: string,
@@ -10,5 +11,6 @@ type Place = {
     web_url: string,
     website: string,
     latitude: string,
-    longitude
+    longitude: string,
+    num_reviews: string
 }
