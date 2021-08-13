@@ -30,6 +30,7 @@ const List: React.SFC<ListProps> = ({ places, childClicked, loading, type, ratin
     useEffect(() => {
         const refs: any[] = Array(places?.length).fill(null).map((_, index) => elRefs[index] || createRef());
         setElRefs(refs);
+        // eslint-disable-next-line
     },[places]);
 
 

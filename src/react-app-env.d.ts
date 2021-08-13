@@ -14,3 +14,8 @@ type Place = {
     longitude: string,
     num_reviews: string
 }
+
+type WeatherItem = {
+    coord: { lat: number, lon: number },
+    weather: any
+}
