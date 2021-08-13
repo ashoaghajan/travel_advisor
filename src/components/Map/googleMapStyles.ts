@@ -1,4 +1,4 @@
-export const styles = [
+const styles = [
     {
       featureType: 'all',
       elementType: 'all',
@@ -99,4 +99,6 @@ export const styles = [
       ],
     },
   ];
+
+  export default styles;
   

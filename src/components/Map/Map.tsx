@@ -3,7 +3,7 @@ import GoogleMapReact from 'google-map-react';
 import useStyles from './mapStyles';
 import MapItem from './Items/MapItem';
 import WeatherItem from './Items/WeatherItem';
-import { styles } from './googleMapStyles';
+import styles from './googleMapStyles';
 
 export interface MapProps {
     places: any
