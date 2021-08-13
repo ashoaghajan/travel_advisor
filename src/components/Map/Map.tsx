@@ -1,8 +1,9 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import useStyles from './mapStyles';
-import MapItem from './MapItem';
-import WeatherItem from './WeatherItem';
+import MapItem from './Items/MapItem';
+import WeatherItem from './Items/WeatherItem';
+import { styles } from './googleMapStyles';
 
 export interface MapProps {
     places: any
@@ -25,9 +26,10 @@ const Map: React.SFC<MapProps> = ({ places, coordinates, weather, setCoordinates
 
     return ( 
         <div className={classes.mapContainer}>
-            <GoogleMapReact bootstrapURLKeys={{ key: 'AIzaSyBVcNQySsn4B9OBpsl5pOG6xEZAHp--nr8' }} 
+            <GoogleMapReact bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_API || '' }} 
                 defaultCenter={coordinates} center={coordinates} defaultZoom={14}
-                margin={[50, 50, 50, 50]} options={{}} onChange={handleChange} onChildClick={(child) => setChildClicked(child)}>
+                options={{ disableDefaultUI: true, zoomControl: true, styles }}
+                margin={[50, 50, 50, 50]} onChange={handleChange} onChildClick={(child) => setChildClicked(child)}>
                 {places?.map((place: Place, index: number) => {
                     const coords= { lat: Number(place.latitude), lng: Number(place.longitude) }
                     return place.latitude ? <MapItem key={index} classes={classes} lat={coords.lat} lng={coords.lng} place={place}/> : null
