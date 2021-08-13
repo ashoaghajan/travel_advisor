@@ -10,7 +10,7 @@ function App() {
 
   const [places, setPlaces] = useState([]);
   const [filteredPlaces, setFilteredPlaces] = useState([]);
-  const [coordinates, setCoordinates] = useState({});
+  const [coordinates, setCoordinates]: [any, React.Dispatch<React.SetStateAction<any>>] = useState(null);
   const [bounds, setBounds] = useState({ ne: { lat: 0, lng: 0 }, sw: { lat: 0, lng: 0  } });
   const [childClicked, setChildClicked]: [any, React.Dispatch<React.SetStateAction<any>>] = useState({});
   const [loading, setLoading] = useState(false);
@@ -25,21 +25,20 @@ function App() {
   },[]);
 
   useEffect(() => {
-    setFilteredPlaces(places?.filter((place: Place) => place.rating > rating));
+    places.length && setFilteredPlaces(places.filter((place: Place) => place.rating > rating));
   },[rating]);
 
   const getPlaces = useRef(_.debounce(async(type, sw: any, ne: any) => {
     const data = await getPlacesData(type, sw, ne);
-    console.log(data)
-    setPlaces(data);
-    setFilteredPlaces(places);
+    data.length && setPlaces(data);
+    data.length && setFilteredPlaces(data);
     setLoading(false);
   }, 1000)).current;
 
   useEffect(() => {
     setLoading(true);
     getPlaces(type, bounds.sw, bounds.ne);
-  },[coordinates, bounds, type]);
+  },[coordinates, bounds.sw, type]);
 
   
   return (

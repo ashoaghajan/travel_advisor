@@ -14,7 +14,6 @@ export interface MapProps {
 const Map: React.SFC<MapProps> = ({ places, coordinates, setCoordinates, setBounds, setChildClicked }) => {
 
     const classes = useStyles();
-    console.log(places)
 
     const handleChange = (e: any) => {
         const { center: { lat, lng }, marginBounds: { ne, sw } } = e;
